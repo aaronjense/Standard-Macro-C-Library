@@ -20,7 +20,7 @@
 *.exe
 *.out
 
-#ID specific
-.vscode
+# Build and Projects
 out/
 build/
+.vs/

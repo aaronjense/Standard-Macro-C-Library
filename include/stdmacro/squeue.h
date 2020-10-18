@@ -16,18 +16,22 @@
  * @data: the array that stores elements of queue.
  * 
  * Example:
- *		// Declare static queue structure with name int_q and array size 10.
- *		STRUCT_SQUEUE(int, 10) int_q;
- *		SQUEUE_INIT(int_q);
+ *		// Declare static queue structure, struct squeue_int, with queue size 10
+ *		STRUCT_SQUEUE(int, 10);
+ *		struct squeue_int int_q;
+ *		// Declare static queue structure, struct squeue_double, and name it double_q 
+ *		STRUCT_SQUEUE(double, 100) double_q;
  * 
  * WARNING: must call SQUEUE_INIT before using squeue API.
  */
+
 #define STRUCT_SQUEUE(basetype, queue_size) \
-struct { \
+struct squeue_ ## basetype { \
 	int		 head; \
 	int		 tail; \
 	basetype data[(queue_size)]; \
 }
+
 /**
  * squeue_init - initializes named static queue. 
  * @struct_name: the structure name of declared static queue.
@@ -48,18 +52,6 @@ struct { \
  * @queue: static queue structure.
  */
 #define squeue_reset(queue) SQUEUE_INIT((queue))
-/**
- * squeue_new - declares a static queue structure and initializes it.
- * @struct_name: the strucute name of static queue to declares and init.
- * @basetype:    the bastetype of elements to store in the queue array.
- * @queue_size:  the size of the static array.
- * Return:       STRUCT_SQUEUE with name <struct_name> and queue type <basetype>
- */
-#define SQUEUE_NEW(struct_name, basetype, queue_size) \
-	do { \
-		STRUCT_SQUEUE(basetype, (queue_size)) struct_name; \
-		SQUEUE_INIT(struct_name); \
-	} while(0)
 /**
  * squeue_is_empty - check if queue is empty.
  * @queue: static queue structure.
