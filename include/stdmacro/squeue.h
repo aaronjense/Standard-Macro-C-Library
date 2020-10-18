@@ -1,4 +1,3 @@
-
 #if !defined(STDMACRO_SQUEUE_H)
 #define STDMACRO_SQUEUE_H
 
@@ -24,28 +23,25 @@
  * 
  * WARNING: must call SQUEUE_INIT before using squeue API.
  */
-
 #define STRUCT_SQUEUE(basetype, queue_size) \
 struct squeue_ ## basetype { \
 	int		 head; \
 	int		 tail; \
 	basetype data[(queue_size)]; \
 }
-
 /**
  * squeue_init - initializes named static queue. 
- * @struct_name: the structure name of declared static queue.
- * @queue_size:  the array size of queue.
+ * @queue: the structure name of declared static queue.
  * 
  * Example:
  *		STRUCT_SQUEUE(int, 10) int_q;
  *		// Initializes declared static queue structure.
  *		SQUEUE_INIT(int_q);
  */
-#define SQUEUE_INIT(struct_name) \
+#define SQUEUE_INIT(queue) \
 	do { \
-		(struct_name).head = -1; \
-		(struct_name).tail = -1; \
+		(queue).head = -1; \
+		(queue).tail = -1; \
 	} while (0)
 /**
  * squeue_reset - reset queue to empty state.

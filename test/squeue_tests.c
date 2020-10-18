@@ -16,7 +16,7 @@
 	/* test squeue_is_full: false */ \
 	assert(squeue_is_full(q) == false); \
 \
-	/* test squeue_size: size == 10 */ \
+	/* test squeue_size: queue size == arg size */ \
 	assert(squeue_size(q) == (size)); \
 
 #define test_fill_and_empty(q, size) \
@@ -30,10 +30,10 @@
 	/* test squeue_is_full: true */ \
 	assert(squeue_is_full(q) == true); \
 \
-	/* test squeue_enqueue: push when full returns false */ \
+	/* test squeue_enqueue: enqueue when full returns false */ \
 	assert(squeue_enqueue(q, 0) == false); \
 \
-	/* test squeue_dequeue: pop all elements, check value is correct */ \
+	/* test squeue_dequeue: remove all elements, check value is correct */ \
 	for (__i = 0; __i < (size); __i++) { \
 		assert(__i == squeue_front(q)); \
 		assert(squeue_dequeue(q) == true); \
@@ -50,7 +50,7 @@
 })
 
 int main(void) {
-	const int q_size    = 10;
+	const int q_size = 10;
 
 	/* Test STRUCT_SQUEUE with postponed named declaration */
 	STRUCT_SQUEUE(int, q_size);
@@ -77,7 +77,7 @@ int main(void) {
 	test_fill_and_empty(u8_q, q_size);
 	test_fill_and_empty(u8_q, q_size);
 
-	printf("PASSED\n");
+	printf("PASSED: squeue_tests\n");
 
 	return 0;
 }
