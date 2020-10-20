@@ -8,8 +8,17 @@ LANGUAGES C)
 add_library (${PROJECT_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
+include(CheckLibraryExists)
 include(GNUInstallDirs)
 include(CTest)
+
+CHECK_LIBRARY_EXISTS(m "log" "" HAVE_LIB_M)                                                                                                
+                                                                                                                                         
+if (HAVE_LIB_M)                                                                                                                          
+    set(EXTRA_LIBS ${EXTRA_LIBS} m)                                                                                                      
+endif (HAVE_LIB_M)
+
+target_link_libraries (${PROJECT_NAME} INTERFACE ${EXTRA_LIBS})
 
 target_include_directories(
   ${PROJECT_NAME}
